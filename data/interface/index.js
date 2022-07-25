@@ -666,6 +666,7 @@ var config = {
         config.ffmpeg.fs = config.ffmpeg.core.FS;
         config.action.start();
       } catch (e) {
+        console.error(e);
         window.alert("An unexpected error happened! Please reload the app and try again.");
       }
     }
