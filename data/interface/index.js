@@ -393,7 +393,6 @@ var config = {
     }
   },
   "ffmpeg": {
-    "blob": null,
     "error": false,
     "fs": undefined,
     "run": undefined,
@@ -588,12 +587,8 @@ var config = {
       config.action.loading();
       /*  */
       try {
-        config.ffmpeg.blob = await fetch(config.ffmpeg.path).then(r => r.blob());
-        const context = document.documentElement.getAttribute("context");
-        const url = context === "webapp" ? config.ffmpeg.blob : config.ffmpeg.path;
-        /*  */
         config.ffmpeg.core = await createFFmpegCore({
-          "mainScriptUrlOrBlob": url,
+          "mainScriptUrlOrBlob": config.ffmpeg.path,
           "locateFile": function (path, prefix) {return prefix + path},
           "print": function (e) {
             let pre = document.createElement("pre");
