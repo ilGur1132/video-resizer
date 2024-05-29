@@ -1,11 +1,8 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "manifest_version": 3,
   "name": "Video Resizer",
   "offline_enabled": true,
-  "short_name": "video-resizer",
-  "optional_permissions": ["downloads"],
-  "permissions": ["storage", "contextMenus"],
   "homepage_url": "https://mybrowseraddon.com/video-resizer.html",
   "description": "Easily resize video files right in your browser!",
   "content_security_policy": {
@@ -17,9 +14,12 @@
   "background": {
     "service_worker": "background.js"
   },
+  "permissions": [
+    "storage", 
+    "contextMenus"
+  ],
   "action": {
     "default_title": "Video Resizer",
-    "default_popup": "data/popup/popup.html",
     "default_icon": {
       "16": "data/icons/16.png",
       "32": "data/icons/32.png",

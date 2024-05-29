@@ -38,7 +38,7 @@ html, body {
 }
 
 .toolbar table tr td svg {
-  fill: #777;
+  fill: #555;
   pointer-events: none;
   vertical-align: middle;
 }
@@ -65,7 +65,7 @@ html, body {
   color: #333;
   cursor: default;
   min-width: 72px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-indent: 10px;
   font-family: monospace;
@@ -80,7 +80,7 @@ html, body {
   color: #333;
   min-width: 88px;
   cursor: default;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-indent: 10px;
   font-family: monospace;
@@ -92,11 +92,11 @@ html, body {
   height: 64px;
   margin: auto;
   text-indent: 0;
-  font-size: 16px;
+  font-size: 17px;
+  font-weight: 600;
   user-select: none;
   line-height: 64px;
   text-align: center;
-  font-weight: normal;
   letter-spacing: 1px;
   font-family: monospace;
   border: solid 1px #f1f1f1;
@@ -112,7 +112,7 @@ html, body {
 
 .file .name label {
   color: #333;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
   user-select: none;
   text-align: center;
@@ -133,7 +133,7 @@ html, body {
   height: 100%;
   outline: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   margin: 10px auto;
   text-indent: 10px;
@@ -178,7 +178,7 @@ html, body {
   color: #333;
   height: 42px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 42px;
   text-indent: 15px;
@@ -198,7 +198,7 @@ html, body {
 .container table tr td {
   padding: 0;
   height: 42px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   box-sizing: border-box;
   font-family: monospace;
@@ -267,7 +267,7 @@ html, body {
   height: 42px;
   outline: none;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-indent: 10px;
   font-family: monospace;
@@ -283,7 +283,7 @@ html, body {
 .container table tr td input[type='number'] {
   width: 100%;
   height: 40px;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   text-indent: 10px;
   line-height: 40px;
@@ -304,8 +304,8 @@ html, body {
   border: 0;
   width: 100%;
   height: auto;
-  max-width: 512px;
-  max-height: 256px;
+  max-width: 500px;
+  max-height: 250px;
   background-color: #000;
   vertical-align: middle;
 }
@@ -313,7 +313,7 @@ html, body {
 .container .result .name span {
   color: #333;
   padding: 5px;
-  font-size: 12px;
+  font-size: 13px;
   font-family: monospace;
 }
 
@@ -365,10 +365,10 @@ html, body {
 .container .console .content pre {
   margin: 0;
   padding: 0;
-  font-size: 12px;
+  font-size: 13px;
   overflow: hidden;
   text-indent: 5px;
-  line-height: 22px;
+  line-height: 24px;
   white-space: nowrap;
   font-family: monospace;
   text-overflow: ellipsis;
@@ -391,12 +391,12 @@ html, body {
   bottom: 0;
   width: 100%;
   color: #fff;
-  height: 42px;
-  font-size: 12px;
+  height: 48px;
+  font-size: 15px;
   cursor: pointer;
   position: fixed;
   font-weight: 600;
-  line-height: 42px;
+  line-height: 48px;
   text-align: center;
   letter-spacing: 1px;
   font-family: monospace;
