@@ -393,14 +393,14 @@ var config = {
     }
   },
   "ffmpeg": {
+    "module": {},
     "error": false,
     "fs": undefined,
     "run": undefined,
-    "core": undefined,
     "buffer": undefined,
     "URL": {
       "core": chrome.runtime.getURL("/data/interface/vendor/ffmpeg-core.js"),
-      "wasm": chrome.runtime.getURL("/data/interface/vendor/ffmpeg-core.wasm")
+      "wasm": chrome.runtime.getURL("/data/interface/vendor/ffmpeg-core.wasm"),
       //"worker": chrome.runtime.getURL("/data/interface/vendor/ffmpeg-core.worker.js")
     },
     "video": {
@@ -511,12 +511,21 @@ var config = {
       config.action.loading();
       /*  */
       try {
+        const base = chrome.runtime.getURL("data/interface/vendor/");
+        config.ffmpeg.module.core = await import(base + "ffmpeg.js");
+        config.ffmpeg.module.util = await import(base + "util.js");
         config.ffmpeg.core = new FFmpegWASM.FFmpeg();
+        config.ffmpeg.util = FFmpegUtil;
+        /*  */
+        const context = document.documentElement.getAttribute("context");
+        const coreURL = await config.ffmpeg.util.toBlobURL(config.ffmpeg.URL.core, "text/javascript");
+        const wasmURL = await config.ffmpeg.util.toBlobURL(config.ffmpeg.URL.wasm, "application/wasm");
+        //const workerURL = await config.ffmpeg.util.toBlobURL(config.ffmpeg.URL.worker, "text/javascript");
         /*  */
         await config.ffmpeg.core.load({
-          "coreURL": config.ffmpeg.URL.core,
-          "wasmURL": config.ffmpeg.URL.wasm,
-          //"workerURL": config.ffmpeg.URL.worker
+          "coreURL": context !== "webapp" ? config.ffmpeg.URL.core : coreURL,
+          "wasmURL": context !== "webapp" ? config.ffmpeg.URL.wasm : wasmURL,
+          //"workerURL": context !== "webapp" ? config.ffmpeg.URL.worker : workerURL
         });
         /*  */
         config.ffmpeg.core.on("log", async function (e) {
