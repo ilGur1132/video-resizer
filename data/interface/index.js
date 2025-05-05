@@ -132,6 +132,7 @@ var config = {
     }
   },
   "load": function () {
+    const theme = document.querySelector(".theme");
     const reload = document.getElementById("reload");
     const result = document.getElementById("result");
     const resize = document.getElementById("resize");
@@ -152,7 +153,7 @@ var config = {
     /*  */
     reload.addEventListener("click", function () {
       document.location.reload();
-    }, false);     
+    }, false);
     /*  */
     settings.addEventListener("click", function () {
       config.listener.button(".settings");
@@ -186,6 +187,14 @@ var config = {
     donation.addEventListener("click", function () {
       let url = config.addon.homepage() + "?reason=support";
       chrome.tabs.create({"url": url, "active": true});
+    }, false);
+    /*  */
+    theme.addEventListener("click", function () {
+      let attribute = document.documentElement.getAttribute("theme");
+      attribute = attribute === "dark" ? "light" : "dark";
+      /*  */
+      document.documentElement.setAttribute("theme", attribute);
+      config.storage.write("theme", attribute);
     }, false);
     /*  */
     config.storage.load(config.action.render);
@@ -348,7 +357,9 @@ var config = {
       content.appendChild(pre);
     },
     "render": async function () {
+      const theme = config.storage.read("theme") !== undefined ? config.storage.read("theme") : "light";
       config.settings = config.storage.read("settings") !== undefined ? config.storage.read("settings") : config.ffmpeg.video.default;
+      document.documentElement.setAttribute("theme", theme !== undefined ? theme : "light");
       /*  */
       await config.ffmpeg.load();
       /*  */
@@ -396,6 +407,7 @@ var config = {
     "module": {},
     "error": false,
     "fs": undefined,
+    "options": null,
     "run": undefined,
     "buffer": undefined,
     "URL": {
@@ -512,14 +524,15 @@ var config = {
       config.action.loading();
       /*  */
       try {
-        config.ffmpeg.module.core = await import(config.ffmpeg.URL.base + "ffmpeg.js");
-        config.ffmpeg.core = new FFmpegWASM.FFmpeg();
-        /*  */
-        await config.ffmpeg.core.load({
+        config.ffmpeg.options = {
           "coreURL": config.ffmpeg.URL.core,
           "wasmURL": config.ffmpeg.URL.wasm,
           //"workerURL": config.ffmpeg.URL.worker
-        });
+        };
+        /*  */
+        config.ffmpeg.module.core = await import(config.ffmpeg.URL.base + "ffmpeg.js");
+        config.ffmpeg.core = new FFmpegWASM.FFmpeg();
+        await config.ffmpeg.core.load(config.ffmpeg.options);
         /*  */
         config.ffmpeg.core.on("log", async function (e) {
           if (e) {
@@ -578,7 +591,7 @@ var config = {
         window.alert("An unexpected error happened! Please reload the app and try again.");
       }
     },
-    "resize": function () {
+    "resize": async function () {
       const button = document.querySelector("#resize");
       if (button.textContent === "cancel") {
         document.location.reload();
@@ -587,6 +600,9 @@ var config = {
           if (config.ffmpeg.file) {
             config.action.start();
             config.action.details();
+            /*  */
+            await config.ffmpeg.core.terminate();
+            await config.ffmpeg.core.load(config.ffmpeg.options);
             /*  */
             let args = [];
             const input = config.ffmpeg.file.name;
