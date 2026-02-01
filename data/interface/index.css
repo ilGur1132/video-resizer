@@ -97,7 +97,7 @@ html, body {
   user-select: none;
   line-height: 64px;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 2px;
   letter-spacing: 1px;
   font-family: monospace;
   border: solid 1px #f1f1f1;
@@ -139,7 +139,7 @@ html, body {
   margin: 10px auto;
   text-indent: 10px;
   line-height: 64px;
-  border-radius: 5px;
+  border-radius: 2px;
   font-family: monospace;
   background-color: #fff;
   box-sizing: border-box;
@@ -161,8 +161,8 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
+  overflow-y: auto;
   overflow-x: hidden;
-  overflow-y: scroll;
   position: relative;
   height: calc(100vh - 270px);
   border-top: solid 1px #f1f1f1;
@@ -179,14 +179,18 @@ html, body {
 
 .container summary {
   color: #333;
-  height: 42px;
+  height: 48px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  line-height: 42px;
+  line-height: 48px;
   text-indent: 15px;
   user-select: none;
   font-family: monospace;
+}
+
+.container details[open] summary {
+  background-color: rgb(0 0 0 / 5%);
 }
 
 .container table {
@@ -501,6 +505,10 @@ html[theme='dark'] .container table tr .spacer {
 
 html[theme='dark'] .container .console .content {
   background-color: rgb(0 0 0 / 50%);
+}
+
+html[theme='dark'] .container details[open] summary {
+  background-color: rgb(255 255 255 / 5%);
 }
 
 html[theme='dark'] .container table tr .spacer[selected] {
